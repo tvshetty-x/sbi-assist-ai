@@ -157,3 +157,41 @@ Solo Participant
 
 SBI Hackathon @ GFF 2026
 
+## Repository Structure
+
+```text
+sbi-assist-ai/
+│
+├── architecture/
+│   ├── architecture.png
+│   └── README.md
+│
+├── docs/
+│   ├── SBI-AssistAI_H.pptx
+│   └── README.md
+│
+├── prototype/
+│   ├── 01-welcome-screen.png
+│   ├── 02-language-selection.png
+│   ├── 03-ai-chat-screen.png
+│   ├── 04-voice-assistant-screen.png
+│   ├── 05-fraud-awareness-screen.png
+│   └── README.md
+│
+├── src/
+│   └── README.md
+│
+└── README.md
+```
+
+## Project Status
+
+* [x] Problem Statement Finalized
+* [x] Pitch Deck Prepared
+* [x] System Architecture Designed
+* [x] UI Prototype Created
+* [x] GitHub Repository Setup
+* [ ] Clickable Prototype
+* [ ] Demo Video
+* [ ] Final Submission
+
