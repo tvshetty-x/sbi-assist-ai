@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from langdetect import detect
+from knowledge_base import banking_faqs, keywords
 
 app = FastAPI(title="SBI AssistAI")
 
@@ -41,15 +42,26 @@ from knowledge_base import banking_faqs
 
 @app.get("/ask")
 def ask(question: str):
-    answer = banking_faqs.get(
-        question.lower(),
-        "Sorry, I don't have information about that yet."
-    )
 
-    return {
-        "question": question,
-        "answer": answer
-    }
+    language = detect(question)
+
+    question_lower = question.lower()
+
+    for intent, words in keywords.items():
+
+        for word in words:
+
+            if word.lower() in question_lower:
+
+                return {
+                    "language": language,
+                    "question": question,
+                    "answer": banking_faqs[intent].get(
+                        language,
+                        banking_faqs[intent]["en"]
+                    )
+                }
+
 
 @app.get("/detect-language")
 def detect_language(text: str):
