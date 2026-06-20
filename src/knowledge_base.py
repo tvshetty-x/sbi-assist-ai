@@ -32,6 +32,13 @@ keywords["debit card"] = [
     "nanna card sigtilla"
 ]
 
+fraud_keywords = {
+    "otp": "SBI never asks for OTP over phone calls.",
+    "pin": "Never share your ATM PIN with anyone.",
+    "link": "Avoid clicking suspicious links.",
+    "password": "Do not share your banking password."
+}
+
 banking_faqs = {
     "password": {
         "en": "Open YONO SBI and select Forgot Password.",

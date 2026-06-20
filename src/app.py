@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from langdetect import detect
-from knowledge_base import banking_faqs, keywords
+from knowledge_base import banking_faqs, keywords, fraud_keywords
+from knowledge_base import banking_faqs
 
 app = FastAPI(title="SBI AssistAI")
 
@@ -16,17 +17,28 @@ def health():
         "status": "running"
     }
 
-@app.get("/fraud-tips")
-def fraud_tips():
-    return {
-        "tips": [
-            "Never share OTP with anyone.",
-            "SBI will never ask for your PIN.",
-            "Avoid clicking suspicious links.",
-            "Verify official SBI websites before logging in."
-        ]
-    }
+@app.get("/fraud-check")
+def fraud_check(message: str):
 
+    message = message.lower()
+
+    for keyword, advice in fraud_keywords.items():
+
+        if keyword in message:
+
+            return {
+                "fraud_detected": True,
+                "risk": "high",
+                "keyword": keyword,
+                "advice": advice
+     }
+        return {
+    "fraud_detected": False,
+    "risk": "low",
+    "advice": "No obvious fraud indicators detected."
+}
+
+    
 @app.get("/banking-help")
 def banking_help():
     return {
@@ -37,8 +49,6 @@ def banking_help():
             "Report lost debit card"
         ]
     }
-
-from knowledge_base import banking_faqs
 
 @app.get("/ask")
 def ask(question: str):
