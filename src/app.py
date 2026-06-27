@@ -24,6 +24,263 @@ conversation_memory = {
     "last_intent": None
 }
 
+follow_up_keywords = {
+    "online": [
+        "online",
+        "website",
+        "app",
+        "yono",
+        "internet",
+        "digital"
+    ],
+    "branch": [
+        "branch",
+        "office",
+        "visit",
+        "offline"
+    ],
+    "mobile": [
+        "mobile",
+        "phone",
+        "registered number",
+        "otp"
+    ],
+    "documents": [
+        "document",
+        "documents",
+        "proof",
+        "required",
+        "papers",
+        "kyc"
+    ],
+    "eligibility": [
+        "eligible",
+        "eligibility",
+        "qualify",
+        "can i apply",
+        "who can apply"
+    ],
+    "locked_account": [
+        "locked",
+        "account locked",
+        "unlock",
+        "blocked"
+    ],
+    "atm": [
+        "atm"
+    ],
+    "sms": [
+        "sms",
+        "missed call",
+        "message"
+    ],
+    "statement": [
+        "statement",
+        "mini statement",
+        "transactions",
+        "passbook"
+    ],
+    "block": [
+        "block",
+        "lost",
+        "stolen"
+    ],
+    "replace": [
+        "replace",
+        "replacement",
+        "new card",
+        "damaged",
+        "expired"
+    ],
+    "international_usage": [
+        "international",
+        "abroad",
+        "foreign",
+        "overseas"
+    ],
+    "pin_generation": [
+        "pin",
+        "generate pin",
+        "green pin",
+        "reset pin"
+    ],
+    "delivery": [
+        "delivery",
+        "delivered",
+        "receive",
+        "received",
+        "not received"
+    ],
+    "zero_balance": [
+        "zero balance",
+        "no balance"
+    ],
+    "minimum_balance": [
+        "minimum balance",
+        "balance requirement",
+        "maintain balance"
+    ],
+    "online_opening": [
+        "open online",
+        "online opening",
+        "open in app",
+        "yono opening"
+    ],
+    "create": [
+        "create",
+        "setup",
+        "set up",
+        "activate",
+        "register"
+    ],
+    "limit": [
+        "limit",
+        "maximum",
+        "daily limit",
+        "transaction limit"
+    ],
+    "reset_pin": [
+        "reset pin",
+        "forgot pin",
+        "change pin",
+        "upi pin"
+    ],
+    "transaction_failed": [
+        "failed",
+        "transaction failed",
+        "payment failed",
+        "deducted"
+    ],
+    "payment_pending": [
+        "pending",
+        "stuck",
+        "processing"
+    ],
+    "refund": [
+        "refund",
+        "reversal",
+        "money back"
+    ],
+    "interest": [
+        "interest",
+        "rate",
+        "roi"
+    ],
+    "tenure": [
+        "tenure",
+        "duration",
+        "years",
+        "period"
+    ],
+    "emi": [
+        "emi",
+        "monthly payment",
+        "installment",
+        "instalment"
+    ],
+    "processing_time": [
+        "processing time",
+        "how long",
+        "approval time",
+        "time taken"
+    ],
+    "annual_fee": [
+        "annual fee",
+        "fee",
+        "charges",
+        "yearly charge"
+    ],
+    "credit_limit": [
+        "credit limit",
+        "card limit",
+        "limit increase"
+    ],
+    "billing_cycle": [
+        "billing cycle",
+        "bill date",
+        "due date",
+        "statement date"
+    ],
+    "reward_points": [
+        "reward",
+        "rewards",
+        "points",
+        "cashback"
+    ],
+    "minimum_amount": [
+        "minimum amount",
+        "minimum deposit",
+        "least amount"
+    ],
+    "premature_withdrawal": [
+        "premature",
+        "withdraw early",
+        "break fd",
+        "close fd"
+    ],
+    "tax": [
+        "tax",
+        "tds",
+        "tax saving"
+    ],
+    "renewal": [
+        "renew",
+        "renewal",
+        "auto renew"
+    ],
+    "apply": [
+        "apply",
+        "request",
+        "order"
+    ],
+    "tracking": [
+        "track",
+        "tracking",
+        "status"
+    ],
+    "stop_payment": [
+        "stop payment",
+        "stop cheque",
+        "cancel cheque"
+    ],
+    "register": [
+        "register",
+        "registration",
+        "new user"
+    ],
+    "registration": [
+        "register",
+        "registration",
+        "new user"
+    ],
+    "forgot_password": [
+        "forgot password",
+        "reset password",
+        "password"
+    ],
+    "forgot_username": [
+        "forgot username",
+        "forgot user id",
+        "username",
+        "user id"
+    ],
+    "unlock_account": [
+        "unlock",
+        "locked",
+        "account locked"
+    ],
+    "activation": [
+        "activate",
+        "activation",
+        "enable"
+    ],
+    "transaction_rights": [
+        "transaction rights",
+        "full rights",
+        "view rights"
+    ]
+}
+
 @app.get("/")
 def home():
     return {
@@ -114,6 +371,7 @@ def ask(question: str):
 def follow_up(question: str):
 
     language = get_supported_language(question)
+    question_lower = question.lower()
 
     last_intent = conversation_memory["last_intent"]
 
@@ -122,17 +380,29 @@ def follow_up(question: str):
             "message": "No previous conversation found."
         }
 
-    if (
-        "online" in question.lower()
-        and last_intent in follow_up_answers
-    ):
-        return {
-            "previous_intent": last_intent,
-            "language": language,
-            "answer": follow_up_answers[last_intent]["online"].get(
-                language,
-                follow_up_answers[last_intent]["online"]["en"]
+    if last_intent in follow_up_answers:
+        available_follow_ups = follow_up_answers[last_intent]
+
+        for follow_up_type, answers in available_follow_ups.items():
+            matching_keywords = follow_up_keywords.get(
+                follow_up_type,
+                follow_up_type.replace("_", " ").split()
             )
+
+            for keyword in matching_keywords:
+                if keyword in question_lower:
+                    return {
+                        "previous_intent": last_intent,
+                        "follow_up": follow_up_type,
+                        "language": language,
+                        "answer": answers.get(
+                            language,
+                            answers["en"]
+                        )
+                    }
+
+        return {
+            "message": "I don't have information for that follow-up question yet."
         }
 
     return {
