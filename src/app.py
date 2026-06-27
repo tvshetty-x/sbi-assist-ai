@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from langdetect import detect
-from knowledge_base import banking_faqs, keywords, fraud_keywords
-from knowledge_base import banking_faqs
 from knowledge_base import (
     banking_faqs,
     keywords,
@@ -41,25 +39,42 @@ def health():
 @app.get("/fraud-check")
 def fraud_check(message: str):
 
-    message = message.lower()
+    message_lower = message.lower()
+    detected_threats = []
 
     for keyword, details in fraud_keywords.items():
-        if keyword in message:
-
-            return {
-                "fraud_detected": True,
+        if keyword in message_lower:
+            detected_threats.append({
                 "keyword": keyword,
                 "fraud_type": details["fraud_type"],
                 "risk": details["risk"],
                 "advice": details["advice"],
                 "recommended_action": details["recommended_action"]
-            }
-        
+            })
+
+    if detected_threats:
+        detected_risks = [threat["risk"] for threat in detected_threats]
+
+        if "critical" in detected_risks:
+            overall_risk = "critical"
+        elif "high" in detected_risks:
+            overall_risk = "high"
+        elif "medium" in detected_risks:
+            overall_risk = "medium"
+        else:
+            overall_risk = "low"
+
         return {
-            "fraud_detected": False,
-            "risk": "low",
-            "message": "No obvious fraud indicators detected."
-}
+            "fraud_detected": True,
+            "overall_risk": overall_risk,
+            "detected_threats": detected_threats
+        }
+
+    return {
+        "fraud_detected": False,
+        "overall_risk": "low",
+        "message": "No obvious fraud indicators detected."
+    }
 
     
 @app.get("/banking-help")
