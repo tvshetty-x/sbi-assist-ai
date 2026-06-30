@@ -1,5 +1,9 @@
 # 🏦 SBI AssistAI
 
+![Hackathon](https://img.shields.io/badge/Hackathon-SBI%20GFF%202026-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Python-green)
+![Status](https://img.shields.io/badge/Status-Prototype-orange)
+
 ### Banking Made Simple for Everyone
 
 SBI AssistAI is a **multilingual banking assistant prototype** built using **FastAPI**. It helps users access common SBI banking services, receive multilingual banking guidance, detect banking frauds, and continue conversations using contextual follow-up support.
