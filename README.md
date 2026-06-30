@@ -1,197 +1,218 @@
-# SBI AssistAI
+# 🏦 SBI AssistAI
 
-## Banking Made Simple for Everyone
+### Banking Made Simple for Everyone
 
-SBI AssistAI is an AI-powered multilingual banking assistant designed to improve digital banking adoption among SBI customers. The solution focuses on making banking accessible to senior citizens, first-time smartphone users, and customers who prefer regional languages.
+SBI AssistAI is a **multilingual banking assistant prototype** built using **FastAPI**. It helps users access common SBI banking services, receive multilingual banking guidance, detect banking frauds, and continue conversations using contextual follow-up support.
 
----
-
-## Problem Statement
-
-Many SBI customers face challenges while using digital banking platforms due to:
-
-* Language barriers
-* Complex user interfaces
-* Limited digital literacy
-* Lack of instant guidance
-* Growing concerns about online fraud and scams
-
-These challenges reduce digital adoption and increase dependency on branch visits.
+Developed as part of **SBI Hackathon @ GFF 2026**.
 
 ---
 
-## Proposed Solution
+# 📌 Problem Statement
 
-SBI AssistAI is an Agentic AI-powered banking assistant that provides:
+Millions of banking customers struggle with digital banking due to:
 
-* Voice and text-based interaction
-* Multilingual support
-* Step-by-step banking guidance
-* Fraud awareness and prevention
-* Personalized customer assistance
+- 🌐 Language barriers
+- 📱 Complex banking interfaces
+- 👴 Limited digital literacy among senior citizens
+- 🌾 Financial inclusion challenges in rural areas
+- ⚠️ Increasing online banking frauds
 
-The assistant is designed to integrate with SBI's digital ecosystem and support customers throughout their banking journey.
-
----
-
-## Key Features
-
-### Multilingual Banking Support
-
-Supports English, Hindi, Kannada, Tamil, Telugu and other Indian languages.
-
-### AI Banking Assistant
-
-Provides conversational guidance for banking services and digital transactions.
-
-### Voice Banking
-
-Allows users to interact through voice commands for improved accessibility.
-
-### Fraud Awareness Module
-
-Educates users about OTP scams, phishing attacks and safe banking practices.
-
-### Personalized Assistance
-
-Offers contextual help based on user queries and banking needs.
-
-### Accessibility First
-
-Designed for senior citizens and first-time digital banking users.
+SBI AssistAI aims to simplify banking by providing accessible, multilingual, and intelligent banking assistance.
 
 ---
 
-## System Architecture
+# ✨ Features
 
-User
-↓
-Voice / Text Input
-↓
-Language Detection
-↓
-SBI AssistAI Agent
-↓
-Intent Recognition
-↓
-Banking Knowledge Base
-↓
-Decision Engine
-↓
-Fraud Awareness Module
-↓
-Response Generation
-↓
-Voice / Text Output
-
-Architecture diagram available in the `/architecture` folder.
+- 🌍 Multilingual Banking Support (English, Kannada & Hindi)
+- 💬 Context-Aware Follow-up Conversations
+- 🏦 Banking Guidance for Common SBI Services
+- 🔐 Fraud Detection & Fraud Awareness
+- 🚨 Multi-Threat Fraud Detection
+- 🌐 Automatic Language Detection
+- 📖 Rule-Based Banking Knowledge Base
+- ⚡ FastAPI REST API
+- 📚 Interactive Swagger Documentation
 
 ---
 
-## Technology Stack
-
-### Frontend
-
-* Android Application
-* Web Interface
+# 🛠️ Technology Stack
 
 ### Backend
+- Python
+- FastAPI
 
-* Python
-* FastAPI
+### Banking Intelligence
+- Rule-Based Banking Engine
+- Keyword Matching
+- Conversation Memory
+- Dynamic Follow-up Engine
 
-### AI Layer
+### Language Processing
+- langdetect
 
-* Large Language Models (LLM)
-* Natural Language Processing
-* Speech-to-Text
-* Text-to-Speech
+### API Documentation
+- Swagger UI (OpenAPI)
 
-### Database
+### Version Control
+- Git
+- GitHub
 
-* PostgreSQL
-
-### Cloud
-
-* Microsoft Azure
-
----
-
-## Prototype Screens
-
-* Welcome Screen
-* Language Selection Screen
-* AI Banking Assistant Chat
-* Voice Banking Interface
-* Fraud Awareness Dashboard
-
-Prototype assets are available in the `/prototype` folder.
+### Future Technologies
+- Large Language Models (LLMs)
+- Speech-to-Text
+- Text-to-Speech
+- Microsoft Azure
 
 ---
 
-## Benefits to SBI
-
-* Increased Digital Banking Adoption
-* Improved Financial Inclusion
-* Better Customer Engagement
-* Reduced Customer Support Workload
-* Enhanced Customer Satisfaction
-* Stronger Digital Trust and Security
-
----
-
-## Future Scope
-
-* Integration with SBI YONO
-* Personalized Financial Guidance
-* Smart Banking Recommendations
-* Predictive Customer Support
-* Expanded Regional Language Support
-
----
-
-## Team
-
-**Thvishaa Shetty**
-Solo Participant
-
-SBI Hackathon @ GFF 2026
-
-## Repository Structure
+# 📂 Project Structure
 
 ```text
 sbi-assist-ai/
 │
 ├── architecture/
-│   ├── architecture.png
-│   └── README.md
-│
+├── demo/
 ├── docs/
-│   ├── SBI-AssistAI_H.pptx
-│   └── README.md
-│
 ├── prototype/
-│   ├── 01-welcome-screen.png
-│   ├── 02-language-selection.png
-│   ├── 03-ai-chat-screen.png
-│   ├── 04-voice-assistant-screen.png
-│   ├── 05-fraud-awareness-screen.png
-│   └── README.md
-│
-├── src/
-│   └── README.md
-│
-└── README.md
+└── src/
+    ├── app.py
+    ├── knowledge_base.py
+    ├── fraud_module.py
+    ├── requirements.txt
+    └── README.md
 ```
 
-## Project Status
+---
 
-* [x] Problem Statement Finalized
-* [x] Pitch Deck Prepared
-* [x] System Architecture Designed
-* [x] UI Prototype Created
-* [x] GitHub Repository Setup
-* [ ] Clickable Prototype
-* [ ] Demo Video
-* [ ] Final Submission
+# 🚀 Getting Started
 
+### Clone the Repository
+
+```bash
+git clone https://github.com/tvshetty-x/sbi-assist-ai.git
+```
+
+### Navigate to the Source Folder
+
+```bash
+cd sbi-assist-ai/src
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the FastAPI Server
+
+```bash
+uvicorn app:app --reload
+```
+
+### Open Swagger Documentation
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 📡 API Endpoints
+
+| Endpoint | Description |
+|-----------|-------------|
+| `/` | Welcome endpoint |
+| `/health` | API health check |
+| `/ask` | Banking Assistant |
+| `/follow-up` | Context-Aware Follow-up |
+| `/fraud-check` | Fraud Detection |
+| `/detect-language` | Detect Language |
+| `/multilingual-help` | Multilingual Help |
+| `/banking-help` | Banking Services |
+
+---
+
+# 💡 How SBI AssistAI Works
+
+```text
+User Question
+        │
+        ▼
+Language Detection
+        │
+        ▼
+Banking Intent Detection
+        │
+        ▼
+Knowledge Base Lookup
+        │
+        ▼
+Conversation Memory
+        │
+        ▼
+Response Generation
+```
+
+---
+
+# 🛡️ Fraud Detection
+
+The fraud detection module identifies common banking frauds including:
+
+- OTP Scam
+- PIN Theft
+- Phishing
+- Fake Customer Care
+- Fake KYC
+- UPI Scam
+- ATM Skimming
+
+The assistant supports **multi-threat fraud detection**, allowing multiple fraud indicators to be identified from a single message while calculating an **overall risk level**.
+
+---
+
+# 🌍 Multilingual Support
+
+Currently supported languages:
+
+- 🇬🇧 English
+- 🇮🇳 Kannada
+- 🇮🇳 Hindi
+
+The assistant also supports several **transliterated inputs**, such as:
+
+```text
+nange password reset madbeku
+```
+
+making banking assistance more accessible to users who type regional languages using the English keyboard.
+
+---
+
+# 🔮 Future Scope
+
+- 🤖 AI-powered intent detection using Large Language Models (LLMs)
+- 🎤 Voice-based interaction (Speech-to-Text & Text-to-Speech)
+- 👤 Session-based conversation memory
+- ☁️ Microsoft Azure cloud deployment
+- 🗄️ PostgreSQL integration
+- 🏦 Integration with SBI digital banking ecosystem
+- 📱 Mobile application support
+
+---
+
+# 👩‍💻 Developer
+
+**Thvishaa Shetty**
+
+Engineering Student
+
+Built for **SBI Hackathon @ GFF 2026**
+
+---
+
+# 🙏 Acknowledgement
+
+SBI AssistAI was developed as a hackathon prototype to demonstrate how multilingual conversational banking assistance can improve digital banking accessibility, fraud awareness, and financial inclusion.
